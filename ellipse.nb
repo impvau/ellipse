@@ -1,0 +1,150 @@
+
+(*Set the desired precision*)
+prec = 200;
+x = "a";
+n = 10000;
+
+SetDirectory[NotebookDirectory[]];
+
+Needs["EllipseFuncs`"];
+Needs["EllipseData`"];
+Needs["Plots`"];
+
+(* Evaluate points initial training points *)
+results = GetEllipseFuncs[DataTrain[]];
+
+(* Output results to CSV file *)
+(*selectedKeys={"yd","y","a","h","h1","h2","hd","h1d","h2d","Mu","MR",\
+"MRu","Mp", "M6"}; *)
+selectedKeys = {"ynp", "h"};
+selection = results[All, selectedKeys];
+formatNumber[num_] := 
+  ToString[
+   NumberForm[N[num, 200], {200, 200}, ExponentFunction -> (Null &), 
+    NumberPadding -> {"", "0"}]];
+data = results /. 
+   assoc_Association :> (formatNumber[assoc[#]] & /@ selectedKeys);
+data = Prepend[data, selectedKeys];
+Export["ellipse_hp_yd.csv", data, "CSV", "TextDelimiters" -> ""]
+
+(*Check the precision of the result*)
+(*
+actualPrecision = Precision[results[[All,"y"]]];
+Print["Precision of the result: ",actualPrecision];
+*)
+
+(*Extract and transform for the table *)
+selectedKeys = {x, "MR Err", "Mu Err", "MRu Err", "Mp Err", "MMC Err"};
+selection = 
+  Transpose[SetPrecision[results[[All, #]] & /@ selectedKeys, prec]];
+
+formatNumber[num_] := 
+  Module[{absNum = Abs[num]}, 
+   If[absNum > 1 && absNum < 10000000000000000000000000000000000000, 
+    ToString[num], 
+    ToString[
+     ScientificForm[N[num], NumberFormat -> (Row[{#1, "E", #3}] &)]]]];
+
+formattedTable = 
+  MapIndexed[
+   Function[{value, index}, 
+    If[NumericQ[value], 
+     If[index[[2]] == 1,(*For the first column'a'*)
+      NumberForm[N[value, prec], {Infinity, 2}, 
+       ExponentFunction -> (Null &)],(*Avoid scientific notation*)
+      formatNumber[
+       value]  (*Apply existing logic for other columns*)], 
+     value  (*Handle non-numeric gracefully*)]], selection, {2}];
+
+formattedTable = Prepend[formattedTable, selectedKeys];
+
+Grid[formattedTable, Frame -> All, Alignment -> Left, Dividers -> All]
+
+(* Evaluate points with a sampling assuming log10 plot *)
+dataPairs = 
+  Table[{a, 1}, {a, 
+    Table[10^((Log10[1.05]*(n - i) + Log10[1000000000]*(i - 1))/(n - 
+          1)), {i, n}]}];
+Grid[dataPairs, Frame -> All];
+results = GetEllipseFuncs[dataPairs];
+
+(* Currently must run this after changing the range in Plots.m to the \
+commented version *)
+(*
+selectedKeys = {x, "MMC Err","MR Err","MRu Err" ,"Mu Err", "Mp Err" \
+};
+createAndSavePlotSR[ "plot_err_m6_vs_intro_80.pdf",  selectedKeys, \
+results, x, "Linear", "Linear"];
+*)
+
+selectedKeys = {x, "MMC Err", "MR Err", "MRu Err", "Mu Err", 
+   "Mp Err" };
+createAndSavePlotSR[ "plot_err_m6_vs_intro.pdf",  selectedKeys, 
+  results, x, "Log", "Log"];
+
+selectedKeys = {x, "MMC Err", "Sa Err", "Sao Err", "Sar Err"};
+pltAlg = 
+ createAndSavePlotSR[ "plot_err_m6_vs_s.pdf",  selectedKeys, results, 
+  x, "Log", "Log",  
+  ToString[Subscript["m", "MC"], StandardForm] <> " vs S-Class" ]
+
+
+selectedKeys = {x, "MMC Err", "K1 Err", "K2 Err", "K3 Err", "K4 Err", 
+   "K5 Err", "K6 Err", "K7 Err", "K8 Err", "K9 Err", "K10 Err", 
+   "K11 Err", "K12 Err"};
+pltKelp = 
+  createAndSavePlotSR[ "plot_err_m6_vs_kelp.pdf",  selectedKeys, 
+   results, x, "Log", "Log", 
+   Row[{Style["a) ", Bold], 
+     ToString[Subscript["m", "MC"], StandardForm] <> 
+      " vs Keplarian"}]];
+
+selectedKeys = {x, "MMC Err", "Ka Err", "Kb Err", "Kc Err", "Kd Err", 
+   "Ke Err", "Mp Err"};
+pltPade = 
+  createAndSavePlotSR[ "plot_err_m6_vs_kelp_pade.pdf",  selectedKeys, 
+   results, x, "Log", "Log", 
+   Row[{Style["b) ", Bold], 
+     ToString[Subscript["m", "MC"], StandardForm] <> 
+      " vs Keplerian Padé"}]];
+
+selectedKeys = {x, "MMC Err", "E1 Err", "E2 Err", "E3 Err", "E4 Err", 
+   "E5 Err", "E6 Err", "O2 Err"};
+pltExtr1 = 
+  createAndSavePlotSR[ "plot_err_m6_vs_extreme_nox.pdf",  
+   selectedKeys, results, x, "Log", "Log", 
+   Row[{Style["c) ", Bold], 
+     ToString[Subscript["m", "MC"], StandardForm] <> 
+      " vs Exact Extermes No-Crossing"}]];
+
+selectedKeys = {x, "MMC Err", "Ea Err", "Eb Err", "Ec Err", "Ed Err", 
+   "Ee Err"};
+pltExtr2 = 
+  createAndSavePlotSR[ "plot_err_m6_vs_extreme_nox_pade.pdf",  
+   selectedKeys, results, x, "Log", "Log",  
+   Row[{Style["d) ", Bold], 
+     ToString[Subscript["m", "MC"], StandardForm] <> 
+      " vs Exact Extermes Padé"}]];
+
+selectedKeys = {x, "MMC Err", "C1 Err", "C2 Err", "C3 Err", "C4 Err", 
+   "C5 Err", "C6 Err", "C7 Err"};
+pltExtr3 = 
+  createAndSavePlotSR[ "plot_err_m6_vs_extreme_x.pdf",  selectedKeys, 
+   results, x, "Log", "Log", 
+   Row[{Style["e) ", Bold], 
+     ToString[Subscript["m", "MC"], StandardForm] <> 
+      " vs Exact Extermes Crossing"}]];
+
+selectedKeys = {x, "MMC Err", "A1 Err", "A2 Err", "A3 Err", "A4 Err", 
+   "A5 Err", "A6 Err", "A7 Err"};
+pltAlg = 
+  createAndSavePlotSR[ "plot_err_m6_vs_algebra.pdf",  selectedKeys, 
+   results, x, "Log", "Log", 
+   Row[{Style["f) ", Bold], 
+     ToString[Subscript["m", "MC"], StandardForm] <> 
+      " vs Algebraic"}]];
+
+plots = GraphicsGrid[{{pltKelp, pltPade}, {pltExtr1, 
+     pltExtr2}, {pltExtr3, pltAlg}}];
+
+Export["plot_compare.pdf", plots, ImageSize -> 1750];
