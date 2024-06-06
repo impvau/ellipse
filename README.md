@@ -5,12 +5,12 @@ Code repository for the publication: A new approximation for the perimeter of th
 
 | File                         | Details                                                                                          |
 |------------------------------|--------------------------------------------------------------------------------------------------|
-| [Main Notebook](ellise.nb)   | Entry point for the functionality that re-generates all data files, tables, and plots            |
+| [Main Notebook](ellipse.nb)   | Entry point for the functionality that re-generates all data files, tables, and plots            |
 | [Training Dataset](data.m)   | Generates the training data points for use in the main notebook                                  |
 | [Plot functionality](plot.m) | Generate plots according to scientific reports functionality                                     |
 | [Ellipse functions](funcs.m) | Define a series of functions that are evaluated on the training data or plotting data            |
 | [Supplementary Material](SupplementaryMaterial.pdf) | Complete PDF of supplementary material   |
-
+| [Table Helper](MathaToLatex.xlsx) | Conversion tool between Mathematica output table and latex displayed table |
 
 Please cite this work as
 
@@ -31,6 +31,18 @@ Please cite this work as
     address     = {},
 }
 ```
+
+## Setup
+
+1. Open and run data.m, plot.m, funcs.m
+2. Proceed to running ellipse.nb
+
+Results will be output to the out/ directory
+
+## Notes
+- To produce the figure for plotting a = 0 to a = 80, open plot.m and comment/uncomment the appropriate sections, run the code in plots.m, then re-run the code to produce the specific plot
+- Note that saving files after opening them in excel will cause truncation of the high precision to <20 decimla places
+- We avoid precision issues in our table that uses scientific notation by copying plain text from Mathematica table into MathaToLatex.xlsx which generates our latex table
 
 # Sykora Ellipse Approximations
 
