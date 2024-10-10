@@ -14,9 +14,8 @@ Needs["Plots`"];
 results = GetEllipseFuncs[DataTrain[]];
 
 (* Output results to CSV file *)
-(*selectedKeys={"yd","y","a","h","h1","h2","hd","h1d","h2d","Mu","MR",\
-"MRu","Mp", "M6"}; *)
-selectedKeys = {"ynp", "h"};
+(*selectedKeys={"yd","y","a","h","h1","h2","hd","h1d","h2d","Mu","MR","MRu","Mp", "M6"}; *)
+selectedKeys = {"y", "a"};
 selection = results[All, selectedKeys];
 formatNumber[num_] := 
   ToString[
