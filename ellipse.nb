@@ -112,7 +112,7 @@ selectedKeys = {x, "MMC Err", "E1 Err", "E2 Err", "E3 Err", "E4 Err",
 pltExtr1 = 
   createAndSavePlotSR[ "out/plot_err_m6_vs_extreme_nox.pdf",  
    selectedKeys, results, x, "Log", "Log", 
-   Row[{Style["c) ", Bold], 
+   Row[{Style["a) ", Bold], 
      ToString[Subscript["m", "MC"], StandardForm] <> 
       " vs Exact Extermes No-Crossing"}]];
 
@@ -121,7 +121,7 @@ selectedKeys = {x, "MMC Err", "Ea Err", "Eb Err", "Ec Err", "Ed Err",
 pltExtr2 = 
   createAndSavePlotSR[ "out/plot_err_m6_vs_extreme_nox_pade.pdf",  
    selectedKeys, results, x, "Log", "Log",  
-   Row[{Style["d) ", Bold], 
+   Row[{Style["b) ", Bold], 
      ToString[Subscript["m", "MC"], StandardForm] <> 
       " vs Exact Extermes Padé"}]];
 
@@ -130,7 +130,7 @@ selectedKeys = {x, "MMC Err", "C1 Err", "C2 Err", "C3 Err", "C4 Err",
 pltExtr3 = 
   createAndSavePlotSR[ "out/plot_err_m6_vs_extreme_x.pdf",  selectedKeys, 
    results, x, "Log", "Log", 
-   Row[{Style["e) ", Bold], 
+   Row[{Style["a) ", Bold], 
      ToString[Subscript["m", "MC"], StandardForm] <> 
       " vs Exact Extermes Crossing"}]];
 
@@ -139,11 +139,16 @@ selectedKeys = {x, "MMC Err", "A1 Err", "A2 Err", "A3 Err", "A4 Err",
 pltAlg = 
   createAndSavePlotSR[ "out/plot_err_m6_vs_algebra.pdf",  selectedKeys, 
    results, x, "Log", "Log", 
-   Row[{Style["f) ", Bold], 
+   Row[{Style["b) ", Bold], 
      ToString[Subscript["m", "MC"], StandardForm] <> 
       " vs Algebraic"}]];
 
 plots = GraphicsGrid[{{pltKelp, pltPade}, {pltExtr1, 
      pltExtr2}, {pltExtr3, pltAlg}}];
 
-Export["out/plot_compare.pdf", plots, ImageSize -> 1750];
+(* For smaller plot, we must change the subfigure labels on each of the above *)
+(* Export["out/plot_compare.pdf", plots, ImageSize -> 1750]; *)
+
+Export["out/plot_compare1.pdf", Column[{pltKelp, pltPade}], ImageSize -> 1750];
+Export["out/plot_compare2.pdf", Column[{pltExtr1, pltExtr2}], ImageSize -> 1750];
+Export["out/plot_compare3.pdf", Column[{pltExtr3, pltAlg}], ImageSize -> 1750];
