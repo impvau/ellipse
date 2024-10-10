@@ -13,8 +13,12 @@ createAndSavePlotSR[filename_String, selectedKeys_List, results_, x_, scalingX_:
   
   errorTypes = DeleteCases[selectedKeys, x];
 
-  colors = Table[If[i == 1, Black, 
-    ColorData["DarkRainbow"][(i - 2)/(Length[errorTypes] - 2)]], {i, Length[errorTypes]}];
+  colors = Table[
+  If[i == 1, Black, 
+    ColorData["Rainbow"][(i - 2)/(Length[errorTypes] - 2)]
+  ], 
+  {i, Length[errorTypes]}
+];
 
   plotData = Table[Tooltip[
     Table[{results[[idx, x]], results[[idx, errorType]]}, {idx, Length[results]}], 
@@ -30,9 +34,7 @@ createAndSavePlotSR[filename_String, selectedKeys_List, results_, x_, scalingX_:
     ScalingFunctions -> {scalingX, scalingY},
     Axes -> False,
     Frame -> True,
-    FrameLabel -> {{Style[ToString[Subscript["Log","10"],StandardForm] <> "(Relative Absolute Error)", 30, FontFamily -> "Helvetica"], None}, {Style[ToString[Subscript["Log","10"],StandardForm] <> "(" <> x <> ")", 30, FontFamily -> "Helvetica"], None}},
-    (*FrameLabel -> {{Style["Relative Absolute Error", 30, FontFamily -> "Helvetica"], None}, {Style[x, 30, FontFamily -> "Helvetica"], None}},*)
-    (*PlotLabel -> If[plotTitle != "", Style[plotTitle, 30, FontFamily -> "Helvetica"], None],  (* New line for title *)*)
+    FrameLabel -> {{Style["Relative Absolute Error", 30, FontFamily -> "Helvetica"], None}, {Style[x, 30, FontFamily -> "Helvetica"], None}},
     PlotLabel -> If[plotTitle =!= Null, Style[plotTitle, 30, FontFamily -> "Helvetica"], None],
     LabelStyle -> {FontSize -> 30, FontFamily -> "Helvetica"},
     Joined -> True,
