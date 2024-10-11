@@ -70,7 +70,7 @@ results = GetEllipseFuncs[dataPairs];
 (* Currently must run this after changing the range in Plots.m to the \
 commented version *)
 (*
-selectedKeys = {x, "MMC Err","MR Err","MRu Err" ,"Mu Err", "Mp Err" \
+selectedKeys = {x, "MMC Err","Mu Err","MR Err" ,"Mp Err", "MRu Err" \
 };
 createAndSavePlotSR[ "out/plot_err_m6_vs_intro_80.pdf",  selectedKeys, \
 results, x, "Linear", "Linear"];
@@ -88,9 +88,9 @@ pltAlg =
   ToString[Subscript["m", "MC"], StandardForm] <> " vs S-Class" ]
 
 
-selectedKeys = {x, "MMC Err", "K1 Err", "K2 Err", "K3 Err", "K4 Err", 
-   "K5 Err", "K6 Err", "K7 Err", "K8 Err", "K9 Err", "K10 Err", 
-   "K11 Err", "K12 Err"};
+selectedKeys = {x, "MMC Err", "K11 Err", "K1 Err", "K3 Err", "K5 Err", "K2 Err",  "K4 Err", 
+   "K7 Err",   "K8 Err", "K9 Err", "K10 Err", 
+    "K6 Err", "K12 Err"};
 pltKelp = 
   createAndSavePlotSR[ "out/plot_err_m6_vs_kelp.pdf",  selectedKeys, 
    results, x, "Log", "Log", 
@@ -107,8 +107,8 @@ pltPade =
      ToString[Subscript["m", "MC"], StandardForm] <> 
       " vs Keplerian Padé"}]];
 
-selectedKeys = {x, "MMC Err", "E1 Err", "E2 Err", "E3 Err", "E4 Err", 
-   "E5 Err", "E6 Err", "O2 Err"};
+selectedKeys = {x, "MMC Err", "E5 Err", "E1 Err", "E3 Err", "E4 Err", "O2 Err", 
+   "E6 Err", "E2 Err"};
 pltExtr1 = 
   createAndSavePlotSR[ "out/plot_err_m6_vs_extreme_nox.pdf",  
    selectedKeys, results, x, "Log", "Log", 
@@ -116,8 +116,8 @@ pltExtr1 =
      ToString[Subscript["m", "MC"], StandardForm] <> 
       " vs Exact Extermes No-Crossing"}]];
 
-selectedKeys = {x, "MMC Err", "Ea Err", "Eb Err", "Ec Err", "Ed Err", 
-   "Ee Err"};
+selectedKeys = {x, "MMC Err", "Ee Err", "Ea Err", "Eb Err", "Ec Err", 
+   "Ed Err"};
 pltExtr2 = 
   createAndSavePlotSR[ "out/plot_err_m6_vs_extreme_nox_pade.pdf",  
    selectedKeys, results, x, "Log", "Log",  
@@ -125,8 +125,8 @@ pltExtr2 =
      ToString[Subscript["m", "MC"], StandardForm] <> 
       " vs Exact Extermes Padé"}]];
 
-selectedKeys = {x, "MMC Err", "C1 Err", "C2 Err", "C3 Err", "C4 Err", 
-   "C5 Err", "C6 Err", "C7 Err"};
+selectedKeys = {x, "MMC Err", "C1 Err", "C2 Err", "C5 Err", 
+   "C4 Err", "C3 Err", "C7 Err", "C6 Err"};
 pltExtr3 = 
   createAndSavePlotSR[ "out/plot_err_m6_vs_extreme_x.pdf",  selectedKeys, 
    results, x, "Log", "Log", 
