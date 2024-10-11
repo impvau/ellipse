@@ -9,6 +9,8 @@ Code repository for the publication: A new approximation for the perimeter of th
 | [Training Dataset](data.m)   | Generates the training data points for use in the main notebook                                  |
 | [Plot functionality](plot.m) | Generate plots according to scientific reports functionality                                     |
 | [Ellipse functions](funcs.m) | Define a series of functions that are evaluated on the training data or plotting data            |
+| [MATLAB Ellipse values to 200dp](matlab_200dp.m) | To compare unity between MATLAB and Mathematica on the precision of ellipse perimeter values using integrals |
+
 | [Table Helper](MathaToLatex.xlsx) | Conversion tool between Mathematica output table and latex displayed table                  |
 
 Please cite this work as
