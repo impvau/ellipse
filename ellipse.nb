@@ -1,3 +1,4 @@
+In[114]:=
 
 (*Set the desired precision*)
 prec = 200;
@@ -114,7 +115,7 @@ pltExtr1 =
    selectedKeys, results, x, "Log", "Log", 
    Row[{Style["a) ", Bold], 
      ToString[Subscript["m", "MC"], StandardForm] <> 
-      " vs Exact Extermes No-Crossing"}]];
+      " vs Exact Extremes No-Crossing"}]];
 
 selectedKeys = {x, "MMC Err", "Ee Err", "Ea Err", "Eb Err", "Ec Err", 
    "Ed Err"};
@@ -123,7 +124,7 @@ pltExtr2 =
    selectedKeys, results, x, "Log", "Log",  
    Row[{Style["b) ", Bold], 
      ToString[Subscript["m", "MC"], StandardForm] <> 
-      " vs Exact Extermes Padé"}]];
+      " vs Exact Extremes Padé"}]];
 
 selectedKeys = {x, "MMC Err", "C1 Err", "C2 Err", "C5 Err", 
    "C4 Err", "C3 Err", "C7 Err", "C6 Err"};
@@ -132,7 +133,7 @@ pltExtr3 =
    results, x, "Log", "Log", 
    Row[{Style["a) ", Bold], 
      ToString[Subscript["m", "MC"], StandardForm] <> 
-      " vs Exact Extermes Crossing"}]];
+      " vs Exact Extremes Crossing"}]];
 
 selectedKeys = {x, "MMC Err", "A1 Err", "A2 Err", "A3 Err", "A4 Err", 
    "A5 Err", "A6 Err", "A7 Err"};
