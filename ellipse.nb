@@ -1,4 +1,3 @@
-In[114]:=
 
 (*Set the desired precision*)
 prec = 200;
@@ -77,8 +76,7 @@ createAndSavePlotSR[ "out/plot_err_m6_vs_intro_80.pdf",  selectedKeys, \
 results, x, "Linear", "Linear"];
 *)
 
-selectedKeys = {x, "MMC Err", "MR Err", "MRu Err", "Mu Err", 
-   "Mp Err" };
+selectedKeys = {x, "MMC Err","Mu Err","MR Err" ,"Mp Err", "MRu Err" };
 createAndSavePlotSR[ "out/plot_err_m6_vs_intro.pdf",  selectedKeys, 
   results, x, "Log", "Log"];
 
